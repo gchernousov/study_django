@@ -5,13 +5,11 @@
     <title>Рецепты</title>
 </head>
 <body>
-<h2>Блюда:</h2>
-    <ul type="square">
-{% for recipe in recipes.keys %}
-    <li><a href="{{ recipe }}">{{ recipe }}</a></li>
+<h2>{{ dish_name }}</h2>
+{% for ingredient, amount in recipe.items %}
+    <p>{{ ingredient }}: {{ amount }}</p>
 {% empty %}
     <p>Такого рецепта не знаю :(</p>
-    {% endfor %}
-    </ul>
+{% endfor %}
 </body>
 </html>
