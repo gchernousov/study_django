@@ -23,4 +23,5 @@ def bus_stations(request):
         'bus_stations': current_bus_stations,
         'page': page,
     }
+    csv_file.close()
     return render(request, 'stations/index.html', context)
