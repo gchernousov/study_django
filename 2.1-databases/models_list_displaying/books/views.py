@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Book
 
 
+def index(request):
+    return redirect('books')
 
 def books_view(request):
     books = Book.objects.all()
