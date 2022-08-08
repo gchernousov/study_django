@@ -16,5 +16,11 @@
             </div>
             {% endfor %}
         </div>
+        {% if previous_book is not None %}
+            <a class="button button-primary" href="/books/{{ previous_book.pub_date|date:'Y-m-d' }}"><-- {{ previous_book.pub_date|date:'Y-m-d' }}</a>
+        {% endif %}
+        {% if next_book is not None %}
+            <a class="button button-primary" href="/books/{{ next_book.pub_date|date:'Y-m-d' }}">{{ next_book.pub_date|date:'Y-m-d' }} --></a>
+        {% endif %}
     </div>
 {% endblock %}
