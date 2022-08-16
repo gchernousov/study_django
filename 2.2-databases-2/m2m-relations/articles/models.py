@@ -35,3 +35,4 @@ class ArticleTag(models.Model):
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
+        ordering = ['-is_main']
