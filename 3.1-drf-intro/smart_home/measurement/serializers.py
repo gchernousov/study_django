@@ -11,7 +11,7 @@ class SensorsSerializer(serializers.ModelSerializer):
 class MeasurementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurement
-        fields = ['temperature', 'created_at']
+        fields = ['temperature', 'created_at', 'img']
 
 
 class SensorDetailSerializer(serializers.ModelSerializer):
@@ -25,4 +25,4 @@ class SensorDetailSerializer(serializers.ModelSerializer):
 class NewMeasurementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurement
-        fields = ['sensor', 'temperature']
+        fields = ['sensor', 'temperature', 'img']
