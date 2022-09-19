@@ -15,12 +15,11 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.exclude(status="DRAFT")
     serializer_class = AdvertisementSerializer
     filter_backends = [CreatorSearch, StatusSearch, DjangoFilterBackend]
-    search_fields = ['creator__id', 'status',]
     filterset_class = AdvertisementFilter
 
 
     def get_queryset(self):
-        if str(self.request.user) != 'AnonymousUser':
+        if self.request.user.is_authenticated:
             queryset = Advertisement.objects.filter(
                 Q(creator=self.request.user.id) | Q(status="OPEN") | Q(status="CLOSED")
             )
