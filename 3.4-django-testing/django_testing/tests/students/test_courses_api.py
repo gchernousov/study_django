@@ -1,9 +1,10 @@
 import pytest
 from rest_framework.test import APIClient
+from rest_framework.exceptions import ValidationError
 from model_bakery import baker
 
 from students.models import Student, Course
-
+from students.serializers import CourseSerializer
 
 #fixtures:
 
@@ -90,7 +91,21 @@ def test_patch_course(client, courses_factory):
 def test_delete_course(client, courses_factory):
     #тест на удаление курса
     course = courses_factory(name='Тестировщик ПО')
-    delete_response = client.delete(f'/api/v1/courses/{course.id}/')
-    get_response = client.get(f'/api/v1/courses/{course.id}/')
-    assert delete_response.status_code == 204
-    assert get_response.status_code != 200
+    Course.objects.count()
+    assert Course.objects.count() == 1
+    response = client.delete(f'/api/v1/courses/{course.id}/')
+    assert response.status_code == 204
+    assert Course.objects.count() == 0
+
+
+@pytest.mark.parametrize("students_input,result", [(12, True), (24, False)])
+def test_validate(students_input, result):
+    students_ids = [i for i in range(students_input)]
+    course = CourseSerializer()
+    data = {'students': students_ids}
+    try:
+        course.validate(data)
+        check = True
+    except ValidationError:
+        check = False
+    assert check == result
